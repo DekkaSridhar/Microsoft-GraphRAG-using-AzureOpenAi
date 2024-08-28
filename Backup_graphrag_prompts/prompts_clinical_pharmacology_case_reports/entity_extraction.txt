@@ -1,0 +1,105 @@
+
+-Goal-
+Given a text document that is potentially relevant to this activity, first identify all entities needed from the text in order to capture the information and ideas in the text.
+Next, report all relationships among the identified entities.
+
+-Steps-
+1. Identify all entities. For each identified entity, extract the following information:
+- entity_name: Name of the entity, capitalized
+- entity_type: Suggest several labels or categories for the entity. The categories should not be specific, but should be as general as possible.
+- entity_description: Comprehensive description of the entity's attributes and activities
+Format each entity as ("entity"{tuple_delimiter}<entity_name>{tuple_delimiter}<entity_type>{tuple_delimiter}<entity_description>
+
+2. From the entities identified in step 1, identify all pairs of (source_entity, target_entity) that are *clearly related* to each other.
+For each pair of related entities, extract the following information:
+- source_entity: name of the source entity, as identified in step 1
+- target_entity: name of the target entity, as identified in step 1
+- relationship_description: explanation as to why you think the source entity and the target entity are related to each other
+- relationship_strength: a numeric score indicating strength of the relationship between the source entity and target entity
+ Format each relationship as ("relationship"{tuple_delimiter}<source_entity>{tuple_delimiter}<target_entity>{tuple_delimiter}<relationship_description>{tuple_delimiter}<relationship_strength>)
+
+3. Return output in English as a single list of all the entities and relationships identified in steps 1 and 2. Use **{record_delimiter}** as the list delimiter.
+
+4. When finished, output {completion_delimiter}
+
+-Examples-
+######################
+
+Example 1:
+
+text:
+]
+. However, a literature review by Perone et al. in 2019 that examined 19 articles showed that
+66% of the BAIT syndrome cases analyzed in those articles involved patients who had taken moxifloxacin
+[4]
+. Based on the aforementioned finding, the authors concluded that it is impossible to entirely exclude
+moxifloxacin toxicity as a potential cause of BAIT syndrome.
+Our case report adds a unique perspective to this debate since our patient’s moxifloxacin overdose occurred
+after having initiated treatment for a urinary tract infection and showed no evidence of upper respiratory
+viral infection. To our knowledge, this is the second reported case of BAIT syndrome in a patient with a
+previous bacterial urinary tract infection. In 2016, Degirmenci et al. reported on an isolated case of BAIT
+syndrome in a patient with an untreated 
+Escherichia coli 
+urinary tract infection, which suggests that viral
+infections are not the sole potential triggers of this syndrome 
+[7]
+.
+2023 Mendez Bermudez et al. Cureus 15(10): e47426. DOI 10.7759/cureus.47426
+3
+ of 
+5The fact
+------------------------
+output:
+("entity"{tuple_delimiter}PERONE ET AL.{tuple_delimiter}AUTHOR, RESEARCHER{tuple_delimiter}Perone et al. conducted a literature review in 2019 examining 19 articles related to BAIT syndrome)
+{record_delimiter}
+("entity"{tuple_delimiter}2019 LITERATURE REVIEW{tuple_delimiter}STUDY, PUBLICATION{tuple_delimiter}A literature review conducted by Perone et al. in 2019 that examined 19 articles on BAIT syndrome)
+{record_delimiter}
+("entity"{tuple_delimiter}BAIT SYNDROME{tuple_delimiter}MEDICAL CONDITION, SYNDROME{tuple_delimiter}BAIT syndrome is a medical condition discussed in the literature review and case reports)
+{record_delimiter}
+("entity"{tuple_delimiter}MOXIFLOXACIN{tuple_delimiter}DRUG, ANTIBIOTIC{tuple_delimiter}Moxifloxacin is an antibiotic that was involved in 66% of BAIT syndrome cases analyzed in the literature review)
+{record_delimiter}
+("entity"{tuple_delimiter}MOXIFLOXACIN TOXICITY{tuple_delimiter}MEDICAL CONDITION, TOXICITY{tuple_delimiter}Moxifloxacin toxicity is considered a potential cause of BAIT syndrome)
+{record_delimiter}
+("entity"{tuple_delimiter}CASE REPORT{tuple_delimiter}STUDY, PUBLICATION{tuple_delimiter}A case report that adds a unique perspective to the debate on BAIT syndrome and moxifloxacin toxicity)
+{record_delimiter}
+("entity"{tuple_delimiter}URINARY TRACT INFECTION{tuple_delimiter}MEDICAL CONDITION, INFECTION{tuple_delimiter}A bacterial infection of the urinary tract, which was present in the patient discussed in the case report)
+{record_delimiter}
+("entity"{tuple_delimiter}DEGIRMENCI ET AL.{tuple_delimiter}AUTHOR, RESEARCHER{tuple_delimiter}Degirmenci et al. reported an isolated case of BAIT syndrome in 2016)
+{record_delimiter}
+("entity"{tuple_delimiter}ESCHERICHIA COLI{tuple_delimiter}BACTERIA, PATHOGEN{tuple_delimiter}Escherichia coli is a bacterium that caused a urinary tract infection in a patient discussed by Degirmenci et al.)
+{record_delimiter}
+("entity"{tuple_delimiter}2023 MENDEZ BERMUDEZ ET AL.{tuple_delimiter}AUTHOR, RESEARCHER{tuple_delimiter}Mendez Bermudez et al. published a case report in Cureus in 2023)
+{record_delimiter}
+("entity"{tuple_delimiter}CUREUS{tuple_delimiter}JOURNAL, PUBLICATION{tuple_delimiter}Cureus is the journal where Mendez Bermudez et al. published their case report in 2023)
+{record_delimiter}
+("relationship"{tuple_delimiter}PERONE ET AL.{tuple_delimiter}2019 LITERATURE REVIEW{tuple_delimiter}Perone et al. conducted the literature review in 2019{tuple_delimiter}9)
+{record_delimiter}
+("relationship"{tuple_delimiter}2019 LITERATURE REVIEW{tuple_delimiter}BAIT SYNDROME{tuple_delimiter}The literature review examined cases of BAIT syndrome{tuple_delimiter}8)
+{record_delimiter}
+("relationship"{tuple_delimiter}2019 LITERATURE REVIEW{tuple_delimiter}MOXIFLOXACIN{tuple_delimiter}The literature review found that 66% of BAIT syndrome cases involved moxifloxacin{tuple_delimiter}7)
+{record_delimiter}
+("relationship"{tuple_delimiter}MOXIFLOXACIN{tuple_delimiter}MOXIFLOXACIN TOXICITY{tuple_delimiter}Moxifloxacin toxicity is considered a potential cause of BAIT syndrome{tuple_delimiter}8)
+{record_delimiter}
+("relationship"{tuple_delimiter}CASE REPORT{tuple_delimiter}BAIT SYNDROME{tuple_delimiter}The case report discusses a unique perspective on BAIT syndrome{tuple_delimiter}7)
+{record_delimiter}
+("relationship"{tuple_delimiter}CASE REPORT{tuple_delimiter}MOXIFLOXACIN{tuple_delimiter}The case report involves a patient who had taken moxifloxacin{tuple_delimiter}7)
+{record_delimiter}
+("relationship"{tuple_delimiter}CASE REPORT{tuple_delimiter}URINARY TRACT INFECTION{tuple_delimiter}The patient in the case report had a urinary tract infection{tuple_delimiter}6)
+{record_delimiter}
+("relationship"{tuple_delimiter}DEGIRMENCI ET AL.{tuple_delimiter}BAIT SYNDROME{tuple_delimiter}Degirmenci et al. reported a case of BAIT syndrome in 2016{tuple_delimiter}7)
+{record_delimiter}
+("relationship"{tuple_delimiter}DEGIRMENCI ET AL.{tuple_delimiter}ESCHERICHIA COLI{tuple_delimiter}Degirmenci et al. reported a case of BAIT syndrome in a patient with an Escherichia coli infection{tuple_delimiter}6)
+{record_delimiter}
+("relationship"{tuple_delimiter}2023 MENDEZ BERMUDEZ ET AL.{tuple_delimiter}CASE REPORT{tuple_delimiter}Mendez Bermudez et al. authored the case report published in 2023{tuple_delimiter}8)
+{record_delimiter}
+("relationship"{tuple_delimiter}2023 MENDEZ BERMUDEZ ET AL.{tuple_delimiter}CUREUS{tuple_delimiter}The case report by Mendez Bermudez et al. was published in Cureus{tuple_delimiter}7)
+{completion_delimiter}
+#############################
+
+
+
+-Real Data-
+######################
+text: {input_text}
+######################
+output:

@@ -1,0 +1,117 @@
+
+You are an expert in clinical pharmacology and medical informatics. You are skilled at analyzing and interpreting case reports, identifying key relationships, and mapping the structure of professional communities. You are adept at helping people understand the intricate networks and interactions within the clinical pharmacology domain, ensuring that insights are drawn from complex data to inform better clinical practices and research collaborations.
+
+# Goal
+Write a comprehensive assessment report of a community taking on the role of a A clinical pharmacology community analyst that is examining case reports related to Bilateral Acute Iris Transillumination (BAIT) syndrome, given a list of entities that belong to the community as well as their relationships and optional associated claims. The analysis will be used to inform decision-makers about significant developments associated with the community and their potential impact.
+
+Domain: clinical pharmacology case reports
+Text: 
+However, a literature review by Perone et al. in 2019 that examined 19 articles showed that 66% of the BAIT syndrome cases analyzed in those articles involved patients who had taken moxifloxacin. Based on the aforementioned finding, the authors concluded that it is impossible to entirely exclude moxifloxacin toxicity as a potential cause of BAIT syndrome. Our case report adds a unique perspective to this debate since our patient’s moxifloxacin overdose occurred after having initiated treatment for a urinary tract infection and showed no evidence of upper respiratory viral infection. To our knowledge, this is the second reported case of BAIT syndrome in a patient with a previous bacterial urinary tract infection. In 2016, Degirmenci et al. reported on an isolated case of BAIT syndrome in a patient with an untreated Escherichia coli urinary tract infection, which suggests that viral infections are not the sole potential triggers of this syndrome.
+
+Categories:
+Ophthalmology
+Keywords:
+bait syndrome, bait, glaucoma, uveitis, moxifloxacin, bilateral acute iris transillumination syndrome
+
+Introduction
+Bilateral acute iris transillumination (BAIT) syndrome is a rare condition that was first described in 2004 as acute and bilateral iridocyclitis with atypical features after systemic moxifloxacin use. The clinical entity can easily be misdiagnosed as anterior uveitis since patients typically present with the following symptoms: conjunctival hyperemia, photophobia, ocular pain, and blurry vision. Several clinical signs, including acute bilateral pigment loss and dispersion, iris transillumination, semi-mydriasis, trabecular meshwork hyperpigmentation, and occasional elevated intraocular pressure (IOP), are characteristic of BAIT syndrome. A clear etiology of the syndrome is unknown. Prior studies have reported strong associations with recent upper respiratory infections, mainly viral ones, as well as systemic antibiotic use, particularly standard-dose oral moxifloxacin. The majority of etiologies. Meanwhile, it is crucial to consider moxifloxacin toxicity as a possible trigger for the onset of BAIT syndrome in a given patient and to establish a prompt diagnosis, manage such a patient effectively, and avoid further ocular complications.
+
+Additional Information
+Author Contributions
+All authors have reviewed the final version to be published and agreed to be accountable for all aspects of the work.
+Concept and design:
+Armando L. Oliver, Israel J. Mendez Bermudez, Estefania Ramirez Marquez, Sofía C. Ayala Rodríguez, Armando J. Ruiz-Justiz, Eduardo J. Rodriguez-Garcia, Marino Blasini, Ileana Nieves, Carmen Santos, Monica Gonzalez
+Acquisition, analysis, or interpretation of data:
+Armando L. Oliver, Israel J. Mendez Bermudez, Estefania Ramirez Marquez, Sofía C. Ayala Rodríguez, Armando J. Ruiz-Justiz, Eduardo J. Rodriguez-Garcia, Marino Blasini, Ileana Nieves, Carmen Santos, Monica Gonzalez
+Drafting of the manuscript:
+Armando L. Oliver, Israel J. Mendez Bermudez, Estefania Ramirez Marquez, Sofía C. Ayala Rodríguez, Armando J. Ruiz-Justiz, Eduardo J. Rodriguez-Garcia, Marino Blasini, Ileana Nieves, Carmen Santos, Monica Gonzalez
+Critical review of the manuscript for important intellectual content:
+Armando L. Oliver, Israel J. Mendez Bermudez, Estefania Ramirez Marquez, Sofía C. Ayala Rodríguez, Armando J. Ruiz-Justiz, Eduardo J. Rodriguez-Garcia, Marino Blasini, Ileana Nieves, Carmen Santos, Monica Gonzalez
+Supervision:
+Armando L. Oliver, Israel J. Mendez Bermudez, Estefania Ramirez Marquez, Sofía C. Ayala Rodríguez, Armando J. Ruiz-Justiz, Eduardo J. Rodriguez-Garcia, Marino Blasini, Ileana Nieves, Carmen Santos, Monica Gonzalez. The content of this report includes an overview of the community's key entities, their legal compliance, technical capabilities,
+reputation, and noteworthy claims.
+
+# Report Structure
+The report should include the following sections:
+- TITLE: community's name that represents its key entities - title should be short but specific. When possible, include representative named entities in the title.
+- SUMMARY: An executive summary of the community's overall structure, how its entities are related to each other, and significant threats associated with its entities.
+- THREAT SEVERITY RATING: a float score between 0-10 that represents the potential global impact to humanity as posed by entities within the community.
+- RATING EXPLANATION: Give a single sentence explanation of the threat severity rating.
+- DETAILED FINDINGS: A list of 5-10 key insights about the community. Each insight should have a short summary followed by multiple paragraphs of explanatory text grounded according to the grounding rules below. Be comprehensive.
+
+Return output as a well-formed JSON-formatted string with the following format. Don't use any unnecessary escape sequences. The output should be a single JSON object that can be parsed by json.loads.
+    {
+        "title": "<report_title>",
+        "summary": "<executive_summary>",
+        "rating": <threat_severity_rating>,
+        "rating_explanation": "<rating_explanation>"
+        "findings": "[{"summary":"<insight_1_summary>", "explanation": "<insight_1_explanation"}, {"summary":"<insight_2_summary>", "explanation": "<insight_2_explanation"}]"
+    }
+
+# Grounding Rules
+After each paragraph, add data record reference if the content of the paragraph was derived from one or more data records. Reference is in the format of [records: <record_source> (<record_id_list>, ...<record_source> (<record_id_list>)]. If there are more than 10 data records, show the top 10 most relevant records.
+Each paragraph should contain multiple sentences of explanation and concrete examples with specific named entities. All paragraphs must have these references at the start and end. Use "NONE" if there are no related roles or records.
+
+Example paragraph with references added:
+This is a paragraph of the output text [records: Entities (1, 2, 3), Claims (2, 5), Relationships (10, 12)]
+
+# Example Input
+-----------
+Text:
+
+Entities
+
+id,entity,description
+5,ABILA CITY PARK,Abila City Park is the location of the POK rally
+
+Relationships
+
+id,source,target,description
+37,ABILA CITY PARK,POK RALLY,Abila City Park is the location of the POK rally
+38,ABILA CITY PARK,POK,POK is holding a rally in Abila City Park
+39,ABILA CITY PARK,POKRALLY,The POKRally is taking place at Abila City Park
+40,ABILA CITY PARK,CENTRAL BULLETIN,Central Bulletin is reporting on the POK rally taking place in Abila City Park
+
+Output:
+{
+    "title": "Abila City Park and POK Rally",
+    "summary": "The community revolves around the Abila City Park, which is the location of the POK rally. The park has relationships with POK, POKRALLY, and Central Bulletin, all
+of which are associated with the rally event.",
+    "rating": 5.0,
+    "rating_explanation": "The impact rating is moderate due to the potential for unrest or conflict during the POK rally.",
+    "findings": [
+        {
+            "summary": "Abila City Park as the central location",
+            "explanation": "Abila City Park is the central entity in this community, serving as the location for the POK rally. This park is the common link between all other
+entities, suggesting its significance in the community. The park's association with the rally could potentially lead to issues such as public disorder or conflict, depending on the
+nature of the rally and the reactions it provokes. [records: Entities (5), Relationships (37, 38, 39, 40)]"
+        },
+        {
+            "summary": "POK's role in the community",
+            "explanation": "POK is another key entity in this community, being the organizer of the rally at Abila City Park. The nature of POK and its rally could be a potential
+source of threat, depending on their objectives and the reactions they provoke. The relationship between POK and the park is crucial in understanding the dynamics of this community.
+[records: Relationships (38)]"
+        },
+        {
+            "summary": "POKRALLY as a significant event",
+            "explanation": "The POKRALLY is a significant event taking place at Abila City Park. This event is a key factor in the community's dynamics and could be a potential
+source of threat, depending on the nature of the rally and the reactions it provokes. The relationship between the rally and the park is crucial in understanding the dynamics of this
+community. [records: Relationships (39)]"
+        },
+        {
+            "summary": "Role of Central Bulletin",
+            "explanation": "Central Bulletin is reporting on the POK rally taking place in Abila City Park. This suggests that the event has attracted media attention, which could
+amplify its impact on the community. The role of Central Bulletin could be significant in shaping public perception of the event and the entities involved. [records: Relationships
+(40)]"
+        }
+    ]
+
+}
+
+# Real Data
+
+Use the following text for your answer. Do not make anything up in your answer.
+
+Text:
+{input_text}
+Output:

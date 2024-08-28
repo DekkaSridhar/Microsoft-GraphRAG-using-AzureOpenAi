@@ -1,0 +1,78 @@
+
+-Goal-
+Given a text document that is potentially relevant to this activity, first identify all entities needed from the text in order to capture the information and ideas in the text.
+Next, report all relationships among the identified entities.
+
+-Steps-
+1. Identify all entities. For each identified entity, extract the following information:
+- entity_name: Name of the entity, capitalized
+- entity_type: Suggest several labels or categories for the entity. The categories should not be specific, but should be as general as possible.
+- entity_description: Comprehensive description of the entity's attributes and activities
+Format each entity as ("entity"{tuple_delimiter}<entity_name>{tuple_delimiter}<entity_type>{tuple_delimiter}<entity_description>
+
+2. From the entities identified in step 1, identify all pairs of (source_entity, target_entity) that are *clearly related* to each other.
+For each pair of related entities, extract the following information:
+- source_entity: name of the source entity, as identified in step 1
+- target_entity: name of the target entity, as identified in step 1
+- relationship_description: explanation as to why you think the source entity and the target entity are related to each other
+- relationship_strength: a numeric score indicating strength of the relationship between the source entity and target entity
+ Format each relationship as ("relationship"{tuple_delimiter}<source_entity>{tuple_delimiter}<target_entity>{tuple_delimiter}<relationship_description>{tuple_delimiter}<relationship_strength>)
+
+3. Return output in English as a single list of all the entities and relationships identified in steps 1 and 2. Use **{record_delimiter}** as the list delimiter.
+
+4. When finished, output {completion_delimiter}
+
+-Examples-
+######################
+
+Example 1:
+
+text:
+ that our patient had a BAIT syndrome diagnosis following a moxifloxacin overdose (after having
+taken 800 mg over the prescribed daily dosage) is evidence that moxifloxacin toxicity may be a trigger for
+said syndrome. Previous studies have shown that the oral administration of moxifloxacin results in
+relatively similar concentrations in the aqueous and vitreous humor and can reach toxic concentrations in
+the iris pigment epithelium 
+[4]
+. The proposed mechanism is that moxifloxacin has a high affinity for
+melanin-containing structures, such as the iris, which could result in phototoxicity 
+[4]
+. In vitro studies by
+Perin et al. (2015) showed a decreased viability of human iris pigment cells after exposure to high
+concentrations of moxifloxacin 
+[9]
+. Cell viability decreased by 84.12% after the administration of 100 ug/mL
+of moxifloxacin compared to what was seen in the control group. Though 100 ug/mL is a high concentration
+compared to the normal therapeutic intraocular concentration, theoretically, a moxifloxacin overdose could
+lead to the significant toxicity associated with the high concentration of the
+------------------------
+output:
+("entity"{tuple_delimiter}BAIT SYNDROME{tuple_delimiter}MEDICAL CONDITION, SYNDROME{tuple_delimiter}BAIT syndrome is a medical condition diagnosed in the patient following a moxifloxacin overdose)
+{record_delimiter}
+("entity"{tuple_delimiter}MOXIFLOXACIN{tuple_delimiter}DRUG, ANTIBIOTIC{tuple_delimiter}Moxifloxacin is an antibiotic that, in this case, was overdosed by the patient, leading to potential toxicity and triggering BAIT syndrome)
+{record_delimiter}
+("entity"{tuple_delimiter}PATIENT{tuple_delimiter}PERSON, SUBJECT{tuple_delimiter}The patient is the individual who was diagnosed with BAIT syndrome following a moxifloxacin overdose)
+{record_delimiter}
+("entity"{tuple_delimiter}PERIN ET AL. (2015){tuple_delimiter}RESEARCH STUDY, AUTHORS{tuple_delimiter}Perin et al. (2015) conducted in vitro studies showing decreased viability of human iris pigment cells after exposure to high concentrations of moxifloxacin)
+{record_delimiter}
+("entity"{tuple_delimiter}HUMAN IRIS PIGMENT CELLS{tuple_delimiter}CELL TYPE, BIOLOGICAL ENTITY{tuple_delimiter}Human iris pigment cells are the cells that showed decreased viability after exposure to high concentrations of moxifloxacin in the study by Perin et al. (2015))
+{record_delimiter}
+("relationship"{tuple_delimiter}PATIENT{tuple_delimiter}BAIT SYNDROME{tuple_delimiter}The patient was diagnosed with BAIT syndrome following a moxifloxacin overdose{tuple_delimiter}9)
+{record_delimiter}
+("relationship"{tuple_delimiter}MOXIFLOXACIN{tuple_delimiter}BAIT SYNDROME{tuple_delimiter}Moxifloxacin overdose is suggested to be a trigger for BAIT syndrome{tuple_delimiter}8)
+{record_delimiter}
+("relationship"{tuple_delimiter}MOXIFLOXACIN{tuple_delimiter}HUMAN IRIS PIGMENT CELLS{tuple_delimiter}Moxifloxacin exposure led to decreased viability of human iris pigment cells in the study by Perin et al. (2015){tuple_delimiter}7)
+{record_delimiter}
+("relationship"{tuple_delimiter}PERIN ET AL. (2015){tuple_delimiter}HUMAN IRIS PIGMENT CELLS{tuple_delimiter}Perin et al. (2015) conducted studies on human iris pigment cells{tuple_delimiter}6)
+{record_delimiter}
+("relationship"{tuple_delimiter}PERIN ET AL. (2015){tuple_delimiter}MOXIFLOXACIN{tuple_delimiter}Perin et al. (2015) studied the effects of high concentrations of moxifloxacin on human iris pigment cells{tuple_delimiter}7)
+{completion_delimiter}
+#############################
+
+
+
+-Real Data-
+######################
+text: {input_text}
+######################
+output:
